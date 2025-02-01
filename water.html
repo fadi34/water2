@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: #1a1a1a; /* Dark background */
+            color: #f5deb3; /* Warm gold text */
+            margin: 0;
+            padding: 0;
+        }
+
+        .tracker-container {
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(50, 35, 15, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.2);
+            display: inline-block;
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #ffcc66; /* Warm gold title */
+            text-shadow: 2px 2px 5px rgba(255, 204, 102, 0.5);
+        }
+
+        .cup-container {
+            position: relative;
+            width: 120px;
+            height: 180px;
+            margin: 20px auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .cup {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #d4a373;
+            border-top: none;
+            border-radius: 0 0 50px 50px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .water {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to top, #2e8b57, #4db8ff);
+            transition: height 0.5s ease-in-out;
+            border-radius: 0 0 50px 50px;
+        }
+
+        #progress-text {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #ffcc66;
+        }
+
+        .buttons {
+            margin-top: 15px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 8px 12px;
+            margin: 8px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+            font-weight: bold;
+        }
+
+        #add-water {
+            background: #8b5e3c;
+            box-shadow: 0px 0px 10px rgba(255, 204, 102, 0.3);
+        }
+
+        #add-water:hover {
+            background: #d4a373;
+        }
+
+        #reset {
+            background: #a52a2a;
+            box-shadow: 0px 0px 10px rgba(255, 99, 71, 0.4);
+        }
+
+        #reset:hover {
+            background: #ff6347;
+        }
+
+        #completion-message {
+            font-size: 18px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ffcc66;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tracker-container">
+        <h1>💧 Water Tracker 💧</h1>
+        <div class="cup-container">
+            <div class="cup">
+                <div class="water" id="water"></div>
+            </div>
+        </div>
+        <p id="progress-text">0 / 4 Liters</p>
+        <div class="buttons">
+            <button id="add-water">+1 Liter</button>
+            <button id="reset">Restart</button>
+        </div>
+        <p id="completion-message">🎉 Task Completed! 🎉</p>
+    </div>
+
+    <script>
+        let currentWater = 0;
+        const maxWater = 4;
+        const waterElement = document.getElementById("water");
+        const progressText = document.getElementById("progress-text");
+        const completionMessage = document.getElementById("completion-message");
+        const addWaterButton = document.getElementById("add-water");
+
+        document.getElementById("add-water").addEventListener("click", function() {
+            if (currentWater < maxWater) {
+                currentWater++;
+                updateWaterLevel();
+            }
+        });
+
+        document.getElementById("reset").addEventListener("click", function() {
+            currentWater = 0;
+            updateWaterLevel();
+            completionMessage.style.display = "none";
+            addWaterButton.disabled = false;
+        });
+
+        function updateWaterLevel() {
+            let percentage = (currentWater / maxWater) * 100;
+            waterElement.style.height = ${percentage}%;
+            progressText.textContent = ${currentWater} / 4 Liters;
+
+            if (currentWater === maxWater) {
+                completionMessage.style.display = "block";
+                addWaterButton.disabled = true;
+            }
+        }
+    </script>
+
+</body>
+</html>
