@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #a0e6ff, #3b82f6);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tracker-container {
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .glass-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .glass {
+            width: 120px;
+            height: 200px;
+            border: 4px solid white;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .water {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, #4db8ff, #87cefa);
+            transition: height 0.5s ease-in-out;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #progress-text {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .buttons {
+            margin-top: 15px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        #add-water {
+            background: #4db8ff;
+        }
+
+        #add-water:hover {
+            background: #1e90ff;
+        }
+
+        #reset {
+            background: #ff4d4d;
+        }
+
+        #reset:hover {
+            background: #d93636;
+        }
+
+        #completion-message {
+            font-size: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tracker-container">
+        <h1>Water Tracker</h1>
+        <div class="glass-container">
+            <div class="glass">
+                <div class="water" id="water"></div>
+            </div>
+            <p id="progress-text">0 / 4 Liters</p>
+        </div>
+        <div class="buttons">
+            <button id="add-water">+1 Liter</button>
+            <button id="reset">Restart</button>
+        </div>
+        <p id="completion-message"></p>
+    </div>
+
+    <script>
+        let currentWater = 0;
+        const maxWater = 4;
+        const waterElement = document.getElementById("water");
+        const progressText = document.getElementById("progress-text");
+        const completionMessage = document.getElementById("completion-message");
+
+        document.getElementById("add-water").addEventListener("click", function() {
+            if (currentWater < maxWater) {
+                currentWater++;
+                updateWaterLevel();
+            }
+        });
+
+        document.getElementById("reset").addEventListener("click", function() {
+            currentWater = 0;
+            updateWaterLevel();
+            completionMessage.textContent = "";
+        });
+
+        function updateWaterLevel() {
+            let percentage = (currentWater / maxWater) * 100;
+            waterElement.style.height = ${percentage}%;
+            progressText.textContent = ${currentWater} / 4 Liters;
+
+            if (currentWater === maxWater) {
+                completionMessage.textContent = "Task Completed! 🎉";
+                completionMessage.style.color = "#FFD700";
+            } else {
+                completionMessage.textContent = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
